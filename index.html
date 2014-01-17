@@ -26,15 +26,15 @@
             font-family: 'Gentium Basic', serif;
         }
 
-        h1, h2, h3, h4, h5, h6, header, #footer{
+        h1, h2, h3, h4, h5, h6, header, #footer {
             font-family: 'Open Sans', sans-serif;
         }
 
         /* HEader */
 
         .navbar-header .navbar-brand {
-            width:100%;
-            position:absolute
+            width: 100%;
+            position: absolute
         }
 
         /* Content */
@@ -47,15 +47,15 @@
         }
 
         #wrap > .container {
-            padding-top:80px;
+            padding-top: 80px;
         }
 
         .jumbotron {
-            font-size:18px;
+            font-size: 18px;
         }
 
         .lead {
-            font-weight:700;
+            font-weight: 700;
         }
 
         /* Footer */
@@ -86,64 +86,40 @@
                 </button>
                 <a href='#' class="navbar-brand visible-xs" data-toggle="collapse" data-target=".navbar-nav">
                     GSB
-                    </a>
+                </a>
             </div>
 
             <ul class="nav navbar-nav collapse navbar-collapse">
                 <!-- NEUE SEITE:
-                    1. <li><a href="#{{ID}}" data-toggle="tab">{{NAME}}</a></li> kopieren und am Ende der Liste einfügen.
-                    2. ID und NAME ersetzen
+                    1. Im Unterordner include eine Datei '{{NAME}}' erstellen und mit Inhalt füllen.
+                    2. <li><a href="include/{{NAME}}.html" data-toggle="tab">{{Titel}}</a></li>
+                       kopieren und am Ende der Liste einfügen.
                     -->
-                <li class="active"><a href="#about" data-toggle="tab">Home</a></li>
-                <li><a href="#roles" data-toggle="tab">Rollen</a></li>
-				<li><a href="#progress" data-toggle="tab">Fortschritt</a></li>
-				<li><a href="#protocol" data-toggle="tab">Protokolle</a></li>
+                <li class="active"><a href="include/about.html">Home</a></li>
+                <li><a href="include/roles.html">Rollen</a></li>
+                <li><a href="include/progress.html">Fortschritt</a></li>
+                <li><a href="include/protocols.html">Protokolle</a></li>
             </ul>
         </div>
     </header>
+
     <div class="container">
         <div class="jumbotron">
-            <div class="tab-content">
-                <!-- NEUE SEITE:
-                    3. <div class="tab-pane active" id="ID">...</div> kopieren und am Ende des .tab-content einfügen.
-                    4. {{ID}} mit oben gewählter und ... durch den Inhalt ersetzen
-                    -->
-                <div class="tab-pane active" id="about">
-                    <h2>GSB - Graphical SPARQL Builder</h2>
-                    <p class="lead">Inhalt dieses Projekts ist es eine  Webanwendung zu erstellen, die es Benutzern erlaubt auf eine intuitive  und GUI-gestützte Art und Weise komplexe SPARQL-Anfragen  an RDF-Wissensbasen zu stellen.</p>
-                    <p>Ein möglicher Anwendungsfall für den  Graphical SPARQL Builder ist eine Abfrageschnittstelle für die Ressourcen  der <a href="http://dbpedia.org" target="_blank" title="externer Verweis (in neuem Fenster)" class="outerlink">DBPedia</a>.</p>
-                </div><!-- end #about -->
-
-                <div class="tab-pane active" id="roles">
-                    <h2>Rollenverteilung</h2>
-                    <p>
-                    <ul>
-                         <li><strong>Projektleiter:</strong>&nbsp;Lukas&nbsp;Eipert</li>
-                         <li><strong>Technischer Assistent:</strong>&nbsp;Christoph&nbsp;Schultz</li>
-                         <li><strong>Recherche:</strong>&nbsp;Elvira&nbsp;Akhtyamova</li>
-                         <li><strong>Modellierung:</strong>&nbsp;Nick&nbsp;Brückner</li>
-                         <li><strong>Tests:</strong>&nbsp;Felix&nbsp;Helfer</li>
-                         <li><strong>Implementierung:</strong>&nbsp;Nico&nbsp;Graebling</li>
-                         <li><strong>Dokumentation:</strong>&nbsp;Siegfried&nbsp;Zötzsche</li>
-                         <li><strong>Qualitätssicherung:</strong>&nbsp;Felix&nbsp;Helfer</li>
-                    </ul>
+            <div id="content">
+                <noscript>
+                    <p class="lead">
+                        Diese Seite macht Gebrauch von JavaScript.
+                        Bitte aktivieren Sie es um die Inhalte sehen zu können.
                     </p>
-                </div><!-- end #roles -->
-				
-				<div class="tab-pane" id="progress">
-                    <h2>Fortschritt</h2>
-                    <p class="lead">Hier werden demnächst unsere Fortschritte präsentiert sein.</p>
-                </div><!-- end #progress -->
-				
-				<div class="tab-pane active" id="protocol">
-                    <h2>Protokolle</h2>
-                    <p class="lead">Hier werden demnächst unsere Protokolle zu finden sein.</p>
-                </div><!-- end #progress -->
-
-            </div><!-- end .tab-content -->
-        </div><!-- end .jumbotron -->
-    </div><!-- end .container -->
-</div><!-- end #wrap -->
+                </noscript>
+            </div>
+            <!-- end #content -->
+        </div>
+        <!-- end .jumbotron -->
+    </div>
+    <!-- end .container -->
+</div>
+<!-- end #wrap -->
 
 <div id="footer">
     <div class="container">
@@ -157,6 +133,17 @@
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-
+<script>
+    $(document).ready(function () {
+        $('#content').load('include/about.html');
+        $("a[href^='include']").click(function (e) {
+            e.preventDefault();
+            var self = $(this);
+            self.parent().siblings().removeClass('active');
+            self.parent().addClass('active');
+            $('#content').load(self.attr('href'));
+        });
+    });
+</script>
 </body>
 </html>
